@@ -8,8 +8,10 @@ const Header = () => {
       <Link to="/">
         <img src={SiteLogo} alt="site logo" className="site-logo-desktop" />
       </Link>
-      <Link to="/sign-up">Sign Up</Link>
-      <Link to="/sign-in">Sign In</Link>
+      <div className="nav-bar-desktop-authentication">
+        <Link to="/sign-up">Sign Up</Link>
+        <Link to="/sign-in">Sign In</Link>
+      </div>
     </nav>
   )
 }
