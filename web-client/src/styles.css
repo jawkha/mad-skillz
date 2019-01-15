@@ -2,6 +2,7 @@ html {
   box-sizing: border-box;
   font-size: 16px;
   font-family: 'Raleway', sans-serif;
+  /* font-family: 'Roboto', sans-serif; */
   color: #f0f8ff;
   background-color: #0849b9;
   text-align: center;
@@ -111,9 +112,6 @@ img {
 
 .nav-bar-desktop-authentication {
   margin-right: 5vh;
-  width: 25vh;
-  display: flex;
-  justify-content: space-between;
 }
 
 .nav-bar-desktop-authentication a {
