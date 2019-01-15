@@ -1,8 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
 import '@babel/polyfill'
 import App from './App'
 import DefaultErrorBoundary from './DefaultErrorBoundary'
+import UserProvider from './providers/UserProvider'
 import './styles.css'
 
 if (process.env.NODE_ENV === 'development') {
@@ -15,7 +17,11 @@ const mountNode = document.getElementById('app')
 ReactDOM.render(
   <React.StrictMode>
     <DefaultErrorBoundary>
-      <App />
+      <Router>
+        <UserProvider>
+          <App />
+        </UserProvider>
+      </Router>
     </DefaultErrorBoundary>
   </React.StrictMode>,
   mountNode

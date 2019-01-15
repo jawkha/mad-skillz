@@ -9,7 +9,7 @@
   },
   "settings": {
     "react": {
-      "version": "^16.6.3"
+      "version": "next"
     }
   },
   "extends": [
@@ -24,5 +24,8 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": ["react", "jsx-a11y"]
+  "plugins": ["react", "jsx-a11y"],
+  "rules": {
+    "no-console": "off"
+  }
 }
