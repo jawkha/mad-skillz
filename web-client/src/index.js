@@ -5,6 +5,7 @@ import '@babel/polyfill'
 import App from './App'
 import DefaultErrorBoundary from './DefaultErrorBoundary'
 import UserProvider from './providers/UserProvider'
+import 'semantic-ui-css/semantic.min.css'
 import './styles.css'
 
 if (process.env.NODE_ENV === 'development') {

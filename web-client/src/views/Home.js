@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import HomeBanner from '../components/HomeBanner'
+import PlatformSelection from '../components/PlatformSelection'
 
 class Home extends Component {
   state = {}
@@ -8,6 +9,7 @@ class Home extends Component {
     return (
       <div>
         <HomeBanner />
+        <PlatformSelection />
       </div>
     )
   }

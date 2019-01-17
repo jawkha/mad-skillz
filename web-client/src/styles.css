@@ -1,7 +1,7 @@
 html {
   box-sizing: border-box;
   font-size: 16px;
-  font-family: 'Raleway', sans-serif;
+  /* font-family: 'Raleway', sans-serif; */
   /* font-family: 'Roboto', sans-serif; */
   color: #f0f8ff;
   background-color: #0849b9;
@@ -38,19 +38,24 @@ img {
   height: auto;
 }
 
-/* HOME BANNER WHICH CONTAINS A LARGE IMAGE AND INFO ABOUT PLATFORM */
-.home-banner {
-  background-image: url('../static/images/home-banner-01.jpg');
-  min-height: 70vh;
+a {
+  text-decoration: none;
+  color: #f0f8ff;
 }
 
-.home-banner-info {
+/* HOME BANNER WHICH CONTAINS A LARGE IMAGE AND INFO ABOUT PLATFORM */
+/* .home-banner {
+  background-image: url('../static/images/home-banner-01.jpg');
+  min-height: 70vh;
+} */
+
+/* .home-banner-info {
   width: 40%;
   padding-top: 15vh;
   line-height: 5vh;
-}
+} */
 
-.home-banner-info-h1 {
+/* .home-banner-info-h1 {
   padding-bottom: 2vh;
 }
 
@@ -93,18 +98,15 @@ img {
 .home-banner-button:active {
   background-color: #0849b9;
   transform: translateY(4px);
-}
+} */
 /* END OF HOME BANNER SECTION */
 
 /* DESKTOP HEADER WITH LOGO AND SIGN UP/SIGN IN OPTIONS */
-.nav-bar-desktop {
-  display: flex;
-  justify-content: space-between;
-  height: 10vh;
-  align-items: center;
-}
+/* .nav-bar-desktop {
+  height: 12vh;
+} */
 
-.site-logo-desktop {
+/* .site-logo-desktop {
   height: 10vh;
   width: 10vh;
   float: left;
@@ -118,9 +120,19 @@ img {
   font-size: 1.2rem;
   color: #ffffff;
   text-decoration: none;
-}
+} */
 /* Remember to add styling and effects for the following link states as well: */
 /* :visited */
 /* :hover */
 /* :active */
 /* END OF DESKTOP HEADER STYLING */
+
+/* STYLING FOR PLATFORM SELECTION MENU */
+/* 
+.ui.secondary.pointing.menu a:first-child {
+  margin-left: auto;
+}
+
+.ui.secondary.pointing.menu a:last-child {
+  margin-right: auto;
+} */
