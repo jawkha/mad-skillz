@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom'
 
 import Home from './views/Home'
 import Authentication from './views/Authentication'
+import UserProfile from './views/UserProfile'
 
 import Header from './components/Header'
 
@@ -15,6 +16,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Authentication} />
+          <Route exact path="/me" component={UserProfile} />
         </Switch>
       </main>
     )
