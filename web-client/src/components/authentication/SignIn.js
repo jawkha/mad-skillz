@@ -20,7 +20,7 @@ class SignIn extends Component {
     const { email, password } = this.state
 
     return (
-      <form className="SignIn" onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit}>
         <h2>Sign In</h2>
         <input
           type="email"

@@ -25,6 +25,7 @@ class GamesContainer extends Component {
 
   render() {
     const { games } = this.state
+    console.log(this.props)
     console.log(games)
     return (
       <Card.Group>

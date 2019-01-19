@@ -3,7 +3,7 @@ import { Segment } from 'semantic-ui-react'
 import styled from 'styled-components'
 
 const Container = styled.div`
-  background-image: url('../static/images/home-banner-01.jpg');
+  background-image: url('../static/images/home-banner-01.svg');
   min-height: 70vh;
 `
 const BannerTop = styled.h1`

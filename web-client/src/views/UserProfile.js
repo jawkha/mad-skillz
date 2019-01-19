@@ -44,7 +44,7 @@ class UserProfile extends Component {
   render() {
     const { displayName } = this.state
     return (
-      <section className="UserProfile">
+      <section>
         <form onSubmit={this.handleSubmit}>
           <input
             type="text"

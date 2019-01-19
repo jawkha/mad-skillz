@@ -10,15 +10,15 @@ const CurrentUser = ({ children }) => {
   const user = useContext(UserContext)
   const { displayName, email, photoURL, createdAt } = user
   return (
-    <section className="CurrentUser">
-      <div className="CurrentUser--profile">
+    <section>
+      <div>
         {photoURL && <img src={photoURL} alt={displayName} />}
-        <div className="CurrentUser--information">
+        <div>
           <Link to="/profile">
             <h2>{displayName}</h2>
           </Link>
-          <p className="email">{email}</p>
-          <p className="created-at">{moment(createdAt.toDate()).calendar()}</p>
+          <p>{email}</p>
+          <p>{moment(createdAt.toDate()).calendar()}</p>
         </div>
       </div>
       <div>

@@ -36,7 +36,7 @@ class SignUp extends Component {
     const { displayName, firstName, lastName, email, password } = this.state
 
     return (
-      <form className="SignUp" onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit}>
         <h2>Sign Up</h2>
         <input
           type="text"
