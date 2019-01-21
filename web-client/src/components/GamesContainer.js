@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import { Card, Image } from 'semantic-ui-react'
 import { firestore } from '../firebase/firebase.config'
 import { collectIdsAndDocs } from '../utils'
@@ -11,12 +13,25 @@ class GamesContainer extends Component {
   unsubscribeFromFirestore = null
 
   componentDidMount = () => {
+    const { platform } = this.props
     this.unsubscribeFromFirestore = firestore
-      .collection(`platforms/xbox/games`)
+      .collection(`platforms/${platform}/games`)
       .onSnapshot(snapshot => {
         const games = snapshot.docs.map(collectIdsAndDocs)
         this.setState({ games })
       })
+  }
+
+  componentDidUpdate = prevProps => {
+    if (this.props.platform !== prevProps.platform) {
+      const { platform } = this.props
+      this.unsubscribeFromFirestore = firestore
+        .collection(`platforms/${platform}/games`)
+        .onSnapshot(snapshot => {
+          const games = snapshot.docs.map(collectIdsAndDocs)
+          this.setState({ games })
+        })
+    }
   }
 
   componentWillUnmount = () => {
@@ -25,12 +40,12 @@ class GamesContainer extends Component {
 
   render() {
     const { games } = this.state
-    console.log(this.props)
-    console.log(games)
+    const { platform } = this.props
+
     return (
       <Card.Group>
         {games.map(game => (
-          <Card key={game.id}>
+          <Card key={game.id} as={Link} to={`/${platform}/${game.slug}`}>
             <Image fluid src={game.imageUrl} />
             <Card.Content>
               <Card.Header>{game.title}</Card.Header>
@@ -40,6 +55,10 @@ class GamesContainer extends Component {
       </Card.Group>
     )
   }
+}
+
+GamesContainer.propTypes = {
+  platform: PropTypes.string.isRequired
 }
 
 export default GamesContainer

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Tab } from 'semantic-ui-react'
 import styled from 'styled-components'
 
@@ -31,7 +31,7 @@ const panes = [
     menuItem: 'PS4',
     render: () => (
       <Tab.Pane attached={false}>
-        <GamesContainer />
+        <GamesContainer platform="ps4" />
       </Tab.Pane>
     )
   },
@@ -39,7 +39,7 @@ const panes = [
     menuItem: 'XBox',
     render: () => (
       <Tab.Pane attached={false}>
-        <GamesContainer />
+        <GamesContainer platform="xbox" />
       </Tab.Pane>
     )
   },
@@ -47,7 +47,7 @@ const panes = [
     menuItem: 'PC',
     render: () => (
       <Tab.Pane attached={false}>
-        <GamesContainer />
+        <GamesContainer platform="pc" />
       </Tab.Pane>
     )
   },
@@ -55,14 +55,18 @@ const panes = [
     menuItem: 'Mobile',
     render: () => (
       <Tab.Pane attached={false}>
-        <GamesContainer />
+        <GamesContainer platform="mobile" />
       </Tab.Pane>
     )
   }
 ]
 
-const PlatformSelection = () => {
-  return <CustomTab menu={{ secondary: true, pointing: true }} panes={panes} />
+class PlatformSelection extends Component {
+  render() {
+    return (
+      <CustomTab menu={{ secondary: true, pointing: true }} panes={panes} />
+    )
+  }
 }
 
 export default PlatformSelection
