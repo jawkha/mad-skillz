@@ -1,3 +1,10 @@
+/*
+ USER PROFILE PAGE www.skillzone.com/users/:user
+ * The user can update information about their Profile such as contact details, display name, profile or cover pictures, etc.
+ * The profile page should show a summary of all the games the user has played and their winnings/losses
+ * Other users can also visit another profile page where a subset of the information will be displayed and they won't be able to edit anything.
+ */
+
 import React, { Component } from 'react'
 import { auth, firestore, storage } from '../firebase/firebase.config'
 

@@ -1,9 +1,32 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { Card, Image } from 'semantic-ui-react'
+import styled from 'styled-components'
 import { firestore } from '../firebase/firebase.config'
 import { collectIdsAndDocs } from '../utils'
+
+const CardGroup = styled.div`
+  display: flex;
+  margin: 0.5rem;
+`
+
+const Card = styled.div`
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 20rem;
+  height: 20rem;
+  margin: 0.5rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05), 0 0px 40px rgba(0, 0, 0, 0.08);
+`
+
+const CardImage = styled.img`
+  width: 20rem;
+`
+
+const CardHeader = styled.h3`
+  color: black;
+`
 
 class GamesContainer extends Component {
   state = {
@@ -41,18 +64,20 @@ class GamesContainer extends Component {
   render() {
     const { games } = this.state
     const { platform } = this.props
-
+    // console.log({ platform }, { games })
     return (
-      <Card.Group>
+      <CardGroup>
         {games.map(game => (
-          <Card key={game.id} as={Link} to={`/${platform}/${game.slug}`}>
-            <Image fluid src={game.imageUrl} />
-            <Card.Content>
-              <Card.Header>{game.title}</Card.Header>
-            </Card.Content>
+          <Card key={game.id}>
+            <Link
+              to={{ pathname: `/${platform}/${game.slug}`, state: { game } }}
+            >
+              <CardImage src={game.imageUrl} alt={game.title} />
+            </Link>
+            <CardHeader>{game.title}</CardHeader>
           </Card>
         ))}
-      </Card.Group>
+      </CardGroup>
     )
   }
 }

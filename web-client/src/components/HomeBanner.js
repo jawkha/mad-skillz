@@ -1,11 +1,17 @@
 import React from 'react'
-import { Segment } from 'semantic-ui-react'
 import styled from 'styled-components'
 
 const Container = styled.div`
   background-image: url('../static/images/home-banner-01.svg');
   min-height: 70vh;
 `
+
+const TextContainer = styled.div`
+  display: inline-block;
+  float: left;
+  padding: 3rem;
+`
+
 const BannerTop = styled.h1`
   color: #ffffff;
   font-weight: normal;
@@ -35,7 +41,7 @@ const Button = styled.button`
   padding: 2vh 6vh;
   background-color: #0b52cc;
   color: white;
-  font-size: 1rem;
+  font-size: 1.6rem;
   border: none;
   border-radius: 1vh;
   &:hover {
@@ -46,7 +52,7 @@ const Button = styled.button`
 const HomeBanner = () => {
   return (
     <Container>
-      <Segment basic floated="left" padded="very">
+      <TextContainer>
         <BannerTop>
           <Line1>
             A <AccentedText>New Home</AccentedText> for
@@ -63,7 +69,7 @@ const HomeBanner = () => {
         </BannerText>
         <Button>START PLAYING</Button>
         {/* The START PLAYING button should take unauthenticated users to the Sign up/Log in page  */}
-      </Segment>
+      </TextContainer>
     </Container>
   )
 }
