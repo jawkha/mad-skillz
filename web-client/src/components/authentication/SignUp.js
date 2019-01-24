@@ -18,18 +18,24 @@ class SignUp extends Component {
 
   handleSubmit = async event => {
     event.preventDefault()
-    const { displayName, email, password } = this.state
+    const { displayName, firstName, lastName, email, password } = this.state
     try {
       const { user } = await auth.createUserWithEmailAndPassword(
         email,
         password
       )
-      createUserProfileDocument(user, { displayName })
+      createUserProfileDocument(user, { displayName, firstName, lastName })
     } catch (error) {
       // console.error('file: SignUp.jsx', 'Error creating a new user', error)
     }
 
-    this.setState({ displayName: '', email: '', password: '' })
+    this.setState({
+      displayName: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: ''
+    })
   }
 
   render() {
