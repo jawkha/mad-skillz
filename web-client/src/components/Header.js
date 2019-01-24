@@ -7,7 +7,6 @@ import SiteLogo from '../../static/logos/logo.png'
 
 const Header = () => {
   const user = useContext(UserContext)
-  console.log('Header.js', { user })
   return (
     <Menu secondary style={styles.menu}>
       <Menu.Item as={Link} to="/">
