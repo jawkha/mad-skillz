@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
-import { signInWithGoogle } from '../../firebase/firebase.config'
+import {
+  signInWithGoogle,
+  signInWithEmailAndPassword
+} from '../../firebase/firebase.config'
 
 class SignIn extends Component {
   state = { email: '', password: '' }
@@ -12,7 +15,14 @@ class SignIn extends Component {
 
   handleSubmit = event => {
     event.preventDefault()
-
+    const { email, password } = this.state
+    signInWithEmailAndPassword(email, password).catch(error => {
+      // Handle Errors here.
+      const errorCode = error.code
+      const errorMessage = error.message
+      console.log(errorCode, errorMessage)
+      // ...
+    })
     this.setState({ email: '', password: '' })
   }
 
