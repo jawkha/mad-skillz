@@ -7,14 +7,27 @@
  */
 
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 class MatchPage extends Component {
   render() {
+    const { match } = this.props.location.state
+
     return (
       <div>
         <h1>Match details to be displayed on this page</h1>
+        <h2>
+          {match.challenger.displayName} vs {match.accepter.displayName}
+        </h2>
+        <h2>Bet amount is {match.betAmount}</h2>
       </div>
     )
+  }
+}
+
+MatchPage.propTypes = {
+  location: {
+    state: PropTypes.object.isRequired
   }
 }
 

@@ -134,37 +134,42 @@ class GamePage extends Component {
       .delete()
   }
 
-  acceptChallenge = challenge => {
+  acceptChallenge = async challenge => {
     const user = this.context
     console.log(`${typeof challenge} -- This should do 3 things:\n1: remove the challenge from the list of open challenges by setting the accepted attribute of the challenge to true, \n2: create a new match which has details about who created the challenge, who accepted it, their platform gamer IDs, the time challenge was created, the time challenge was accepted, etc. and \n
     3: add the match details to the card on Game Page which has details about the current matches in progress.`)
-    return firestore
+    await firestore
       .doc(
         `platforms/${this.platform}/games/${this.gameId}/challenges/${
           challenge.id
         }`
       )
       .update({ accepted: true })
-      .then(() => {
-        console.log('accept challenge then', challenge)
-        return firestore
-          .collection(`platforms/${this.platform}/games/${this.gameId}/matches`)
-          .doc(challenge.id)
-          .set({
-            platform: challenge.platform,
-            game: challenge.game,
-            betAmount: challenge.betAmount,
-            challenger: challenge.user,
-            accepter: user,
-            completed: false,
-            score: {
-              challenger: null,
-              accepter: null
-            },
-            winner: null,
-            disputed: false
-          })
+
+    await firestore
+      .collection(`platforms/${this.platform}/games/${this.gameId}/matches`)
+      .doc(challenge.id)
+      .set({
+        platform: challenge.platform,
+        game: challenge.game,
+        betAmount: challenge.betAmount,
+        challenger: challenge.user,
+        accepter: user,
+        completed: false,
+        score: {
+          challenger: null,
+          accepter: null
+        },
+        winner: null,
+        disputed: false
       })
+
+    await console.log(
+      'GamePage.js: called from Line 169',
+      challenge.platform,
+      challenge.game.slug,
+      challenge.id
+    )
   }
 
   renderOpenChallenges = () => {
@@ -199,10 +204,17 @@ class GamePage extends Component {
     return matchesInProgress.map(match => {
       return (
         <GamesInProgressListItem key={match.id}>
-          <div>
+          <Link
+            to={{
+              pathname: `/${match.platform}/${match.game.slug}/matches/${
+                match.id
+              }`,
+              state: { match }
+            }}
+          >
             {match.accepter.displayName} vs {match.challenger.displayName} for{' '}
             {match.betAmount}
-          </div>
+          </Link>
         </GamesInProgressListItem>
       )
     })
