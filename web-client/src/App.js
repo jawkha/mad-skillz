@@ -21,7 +21,11 @@ class App extends Component {
           <Route exact path="/login" component={Authentication} />
           <Route exact path="/me" component={UserProfile} />
           <Route exact path="/:platform/:game" component={GamePage} />
-          <Route exact path="/:platform/:game/:match" component={MatchPage} />
+          <Route
+            exact
+            path="/:platform/:game/matches/:match"
+            component={MatchPage}
+          />
           <Route component={NotFound404} />
         </Switch>
       </main>
