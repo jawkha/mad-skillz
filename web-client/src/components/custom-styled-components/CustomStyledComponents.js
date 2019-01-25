@@ -1,5 +1,30 @@
 import styled from 'styled-components'
 
+// GAMES CONTAINER
+export const CardGroup = styled.div`
+  display: flex;
+  margin: 0.5rem;
+`
+
+export const Card = styled.div`
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 20rem;
+  height: 20rem;
+  margin: 0.5rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05), 0 0px 40px rgba(0, 0, 0, 0.08);
+`
+
+export const CardImage = styled.img`
+  width: 20rem;
+`
+
+export const CardHeader = styled.h3`
+  color: black;
+`
+
+// GAME PAGE
 export const Jumbotron = styled.div`
   width: 100vw;
   height: 10rem;

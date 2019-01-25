@@ -1,32 +1,14 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import {
+  CardGroup,
+  Card,
+  CardImage,
+  CardHeader
+} from './custom-styled-components/CustomStyledComponents'
 import { firestore } from '../firebase/firebase.config'
 import { collectIdsAndDocs } from '../utils'
-
-const CardGroup = styled.div`
-  display: flex;
-  margin: 0.5rem;
-`
-
-const Card = styled.div`
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  width: 20rem;
-  height: 20rem;
-  margin: 0.5rem;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05), 0 0px 40px rgba(0, 0, 0, 0.08);
-`
-
-const CardImage = styled.img`
-  width: 20rem;
-`
-
-const CardHeader = styled.h3`
-  color: black;
-`
 
 class GamesContainer extends Component {
   state = {
