@@ -6,78 +6,29 @@
  */
 
 import React, { Component } from 'react'
-import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
+import {
+  Jumbotron,
+  Image,
+  Content,
+  CenterDisplay,
+  CreateChallengeDiv,
+  CurrentOpenChallengesDiv,
+  CurrentOpenChallengesListItem,
+  GamesInProgressDiv,
+  GamesInProgressListItem
+} from './../components/custom-styled-components/CustomStyledComponents'
 import { firestore, auth } from '../firebase/firebase.config'
 import { UserContext } from '../providers/UserProvider'
 import { collectIdsAndDocs } from '../utils'
-
-const Jumbotron = styled.div`
-  width: 100vw;
-  height: 10rem;
-`
-
-const Image = styled.img`
-  height: 10rem;
-`
-const Content = styled.div`
-  display: flex;
-`
-
-const CenterDisplay = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-left: 28rem;
-`
-
-const CreateChallengeDiv = styled.div`
-  width: 70rem;
-  height: 10rem;
-  margin: 2rem auto;
-  padding: 3rem;
-  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.05), 0 0px 4rem rgba(0, 0, 0, 0.08);
-`
-
-const CurrentOpenChallengesDiv = styled.div`
-  width: 70rem;
-  margin: 2rem auto;
-  padding: 3rem;
-  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.05), 0 0px 4rem rgba(0, 0, 0, 0.08);
-`
-
-const CurrentOpenChallengesListItem = styled.li`
-  width: 60rem;
-  margin: 2rem auto;
-  padding: 3rem;
-  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.05), 0 0px 4rem rgba(0, 0, 0, 0.08);
-`
-
-// const RecentGameResultsDiv = styled.div`
-//   width: 70rem;
-//   margin: 2rem auto;
-//   padding: 3rem;
-//   box-shadow: 0 0 2rem rgba(0, 0, 0, 0.05), 0 0px 4rem rgba(0, 0, 0, 0.08);
-// `
-
-// const GamesInProgressDiv = styled.div`
-//   width: 70rem;
-//   margin: 2rem auto;
-//   padding: 3rem;
-//   box-shadow: 0 0 2rem rgba(0, 0, 0, 0.05), 0 0px 4rem rgba(0, 0, 0, 0.08);
-// `
-
-// const ChatWindow = styled.div`
-//   width: 20rem;
-//   margin: 3rem;
-//   box-shadow: 0 0 2rem rgba(0, 0, 0, 0.05), 0 0px 4rem rgba(0, 0, 0, 0.08);
-// `
 
 class GamePage extends Component {
   static contextType = UserContext
   state = {
     openChallenges: [],
+    matchesInProgress: [],
     betAmount: 0
   }
 
@@ -99,8 +50,21 @@ class GamePage extends Component {
     )
   }
 
+  get matchesRef() {
+    return firestore.collection(
+      `platforms/${this.platform}/games/${this.gameId}/matches`
+    )
+  }
+
+  // get openChallengesRef() {
+  //   return firestore
+  //     .collection(`platforms/${this.platform}/games/${this.gameId}/challenges`)
+  //     .where('accepted', '==', false)
+  // }
+
   unsubscribeFromGame = null
   unsubscribeFromChallenges = null
+  unsubscribeFromMatches = null
 
   componentDidMount = async () => {
     this.unsubscribeFromGame = this.gameRef.onSnapshot(snapshot => {
@@ -108,15 +72,23 @@ class GamePage extends Component {
       this.setState({ game })
     })
 
-    this.unsubscribeFromChallenges = this.challengesRef.onSnapshot(snapshot => {
-      const openChallenges = snapshot.docs.map(collectIdsAndDocs)
-      this.setState({ openChallenges })
+    this.unsubscribeFromChallenges = this.challengesRef
+      .where('accepted', '==', false)
+      .onSnapshot(snapshot => {
+        const openChallenges = snapshot.docs.map(collectIdsAndDocs)
+        this.setState({ openChallenges })
+      })
+
+    this.unsubscribeFromMatches = this.matchesRef.onSnapshot(snapshot => {
+      const matchesInProgress = snapshot.docs.map(collectIdsAndDocs)
+      this.setState({ matchesInProgress })
     })
   }
 
   componentWillUnmount = () => {
     this.unsubscribeFromGame()
     this.unsubscribeFromChallenges()
+    this.unsubscribeFromMatches()
   }
 
   handleBetInput = event => {
@@ -144,7 +116,8 @@ class GamePage extends Component {
         email,
         photoURL
       },
-      createdAt: new Date()
+      createdAt: new Date(),
+      accepted: false
     }
 
     this.challengesRef.add(challenge)
@@ -162,8 +135,36 @@ class GamePage extends Component {
   }
 
   acceptChallenge = challenge => {
-    console.log(`${typeof challenge} -- This should do 3 things:\n1: remove the challenge from the list of open challenges, \n2: create a new match which has details about who created the challenge, who accepted it, their platform gamer IDs, the time challenge was created, the time challenge was accepted, etc. and \n
+    const user = this.context
+    console.log(`${typeof challenge} -- This should do 3 things:\n1: remove the challenge from the list of open challenges by setting the accepted attribute of the challenge to true, \n2: create a new match which has details about who created the challenge, who accepted it, their platform gamer IDs, the time challenge was created, the time challenge was accepted, etc. and \n
     3: add the match details to the card on Game Page which has details about the current matches in progress.`)
+    return firestore
+      .doc(
+        `platforms/${this.platform}/games/${this.gameId}/challenges/${
+          challenge.id
+        }`
+      )
+      .update({ accepted: true })
+      .then(() => {
+        console.log('accept challenge then', challenge)
+        return firestore
+          .collection(`platforms/${this.platform}/games/${this.gameId}/matches`)
+          .doc(challenge.id)
+          .set({
+            platform: challenge.platform,
+            game: challenge.game,
+            betAmount: challenge.betAmount,
+            challenger: challenge.user,
+            accepter: user,
+            completed: false,
+            score: {
+              challenger: null,
+              accepter: null
+            },
+            winner: null,
+            disputed: false
+          })
+      })
   }
 
   renderOpenChallenges = () => {
@@ -192,10 +193,25 @@ class GamePage extends Component {
     })
   }
 
+  renderMatchesInProgress = () => {
+    const { matchesInProgress } = this.state
+    console.log({ matchesInProgress })
+    return matchesInProgress.map(match => {
+      return (
+        <GamesInProgressListItem key={match.id}>
+          <div>
+            {match.accepter.displayName} vs {match.challenger.displayName} for{' '}
+            {match.betAmount}
+          </div>
+        </GamesInProgressListItem>
+      )
+    })
+  }
+
   render() {
     console.log('game page state', this.state)
     const coverImageUrl =
-      'https://firebasestorage.googleapis.com/v0/b/mad-skillz-1839c.appspot.com/o/platforms%2Fmobile%2Fgames%2F8-ball-pool%2Fgame-assets%2Fcard-images%2F8Ball-Pool.jpg?alt=media&token=9759e23e-0f80-4568-bc94-3a6580882a57'
+      'https://firebasestorage.googleapis.com/v0/b/mad-skillz-1839c.appspot.com/o/platforms%2Fmobile%2Fgames%2F8-ball-pool%2Fgame-assets%2Fcover-images%2F8ball-pool-cover.jpg?alt=media&token=21ba0d2a-8093-48e1-a874-a9ba39d087c5'
     return (
       <div>
         <Jumbotron>
@@ -205,6 +221,11 @@ class GamePage extends Component {
           <CenterDisplay>
             <CreateChallengeDiv>
               <h3>A container that allows you to create a challenge</h3>
+              <p>
+                If a user has previously provided information about their
+                gamertag, it will also show up here. This form will have the
+                following fields: Platform: , Game: , PlayerName: , Bet Amount:{' '}
+              </p>
               {auth.currentUser !== null ? (
                 <form onSubmit={this.createChallenge}>
                   <input
@@ -227,8 +248,8 @@ class GamePage extends Component {
             <CurrentOpenChallengesDiv>
               <h3>A container that displays the current open challenges</h3>
               <p>
-                Challenges created by the current user will have the a cancel
-                button. Others will have an accept button
+                Challenges created by the current user will have a cancel
+                button. Others will have an accept button.
               </p>
               <ul>
                 {this.state.openChallenges && this.renderOpenChallenges()}
@@ -236,11 +257,16 @@ class GamePage extends Component {
             </CurrentOpenChallengesDiv>
             {/* <RecentGameResultsDiv>
               A container that displays the results of last few played games
-            </RecentGameResultsDiv>
+            </RecentGameResultsDiv> */}
             <GamesInProgressDiv>
-              A container that displays the current number of games that are in
-              progress
-            </GamesInProgressDiv> */}
+              <p>
+                A container that displays the current number of games that are
+                in progress
+              </p>
+              <ul>
+                {this.state.matchesInProgress && this.renderMatchesInProgress()}
+              </ul>
+            </GamesInProgressDiv>
           </CenterDisplay>
           {/* <ChatWindow>List of gamers in the Game Room</ChatWindow> */}
         </Content>

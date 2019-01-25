@@ -72,7 +72,7 @@ class GamesContainer extends Component {
             <Link
               to={{ pathname: `/${platform}/${game.slug}`, state: { game } }}
             >
-              <CardImage src={game.imageUrl} alt={game.title} />
+              <CardImage src={game.cardImageUrl} alt={game.title} />
             </Link>
             <CardHeader>{game.title}</CardHeader>
           </Card>
