@@ -3,6 +3,7 @@ import styled from 'styled-components'
 // GAMES CONTAINER
 export const CardGroup = styled.div`
   display: flex;
+  height: 20rem;
   margin: 0.5rem;
 `
 
@@ -26,13 +27,12 @@ export const CardHeader = styled.h3`
 
 // GAME PAGE
 export const Jumbotron = styled.div`
-  width: 100vw;
-  height: 10rem;
+background-image: url('${props => props.coverImageUrl}');
+background-size: cover;
+width: 100vw;
+height: 30rem;
 `
 
-export const Image = styled.img`
-  height: 10rem;
-`
 export const Content = styled.div`
   display: flex;
 `
@@ -45,9 +45,10 @@ export const CenterDisplay = styled.div`
 
 export const CreateChallengeDiv = styled.div`
   width: 70rem;
-  height: 10rem;
+  height: 15rem;
   margin: 2rem auto;
   padding: 3rem;
+  text-align: center;
   box-shadow: 0 0 2rem rgba(0, 0, 0, 0.05), 0 0px 4rem rgba(0, 0, 0, 0.08);
 `
 
