@@ -6,9 +6,13 @@
  */
 
 import React, { Component } from 'react'
+import { Segment, Form, Image, Header, Container } from 'semantic-ui-react'
+
 import { auth, firestore, storage } from '../firebase/firebase.config'
+import { UserContext } from '../providers/UserProvider'
 
 class UserProfile extends Component {
+  static contextType = UserContext
   state = {
     displayName: ''
   }
@@ -50,20 +54,62 @@ class UserProfile extends Component {
   }
   render() {
     const { displayName } = this.state
+    const user = this.context
+    const square = { width: 175, height: 175 }
     return (
-      <section>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            type="text"
-            name="displayName"
-            value={displayName}
-            onChange={this.handleChange}
-            placeholder="Display Name"
-          />
-          <input type="file" ref={ref => (this.imageInput = ref)} />
-          <input type="submit" value="Update" />
-        </form>
-      </section>
+      <Container style={{ margin: '0 auto', width: '70rem' }}>
+        <div>
+          <Segment>
+            {user && user.photoURL ? (
+              <Image src={user.photoURL} size="medium" circular />
+            ) : (
+              <Segment circular style={square}>
+                <Header as="h2">.</Header>
+              </Segment>
+            )}
+          </Segment>
+
+          <Form onSubmit={this.handleSubmit} size="large">
+            <Form.Group widths="equal">
+              <Form.Input
+                fluid
+                label="First name"
+                placeholder={user.firstName}
+                readOnly
+              />
+              <Form.Input
+                fluid
+                label="Last name"
+                placeholder={user.lastName}
+                readOnly
+              />
+            </Form.Group>
+            <Form.Input
+              type="text"
+              name="email"
+              placeholder={user.email}
+              readOnly
+            />
+            <Form.Input
+              type="text"
+              name="displayName"
+              value={displayName}
+              onChange={this.handleChange}
+              placeholder="Display Name"
+            />
+            <Form.Input
+              type="file"
+              // icon="file image outline"
+              accept="image/png, image/jpeg"
+              multiple="false"
+              ref={ref => (this.imageInput = ref)}
+            />
+            <Form.Button positive type="submit">
+              UPDATE
+            </Form.Button>
+          </Form>
+        </div>
+      </Container>
     )
   }
 }
