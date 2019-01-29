@@ -57,16 +57,17 @@ class UserProfile extends Component {
     const user = this.context
     const square = { width: 175, height: 175 }
     return (
-      <Container style={{ margin: '0 auto', width: '70rem' }}>
+      <Container style={{ margin: '0 auto', width: '50rem' }}>
         <div>
-          <Segment>
+          <Segment textAlign="center" padded>
             {user && user.photoURL ? (
-              <Image src={user.photoURL} size="medium" circular />
+              <Image src={user.photoURL} size="medium" circular centered />
             ) : (
               <Segment circular style={square}>
                 <Header as="h2">.</Header>
               </Segment>
             )}
+            <h2>{`${user.firstName} ${user.lastName}`}</h2>
           </Segment>
 
           <Form onSubmit={this.handleSubmit} size="large">
