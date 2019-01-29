@@ -9,7 +9,8 @@
     "dev:hot": "npm run dev -- --hot",
     "test": "jest",
     "format": "pretty-quick",
-    "lint": "eslint ./"
+    "lint": "eslint ./",
+    "deploy": "npm run build && firebase deploy"
   },
   "husky": {
     "hooks": {
@@ -17,7 +18,6 @@
     }
   },
   "author": "Jawad Khawaja",
-  "license": "ISC",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jawkha/mad-skillz.git"
@@ -63,9 +63,9 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
-    "firebase": "^5.7.2",
-    "firebase-admin": "^6.4.0",
-    "firebase-tools": "^6.2.2",
+    "firebase": "^5.8.1",
+    "firebase-admin": "^6.5.1",
+    "firebase-tools": "^6.3.0",
     "moment": "^2.23.0",
     "prop-types": "^15.6.2",
     "react": "next",
