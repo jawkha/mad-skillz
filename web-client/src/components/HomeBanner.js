@@ -1,8 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import bannerImage from './../../static/images/home-banner-01.jpg'
+
 const Container = styled.div`
-  background-image: url('../static/images/home-banner-01.svg');
+  background-image: url(${bannerImage});
   min-height: 70vh;
 `
 
