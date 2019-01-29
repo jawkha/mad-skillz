@@ -18,7 +18,6 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 export const firestore = firebase.firestore()
-firestore.settings({ timestampsInSnapshots: true })
 
 export const auth = firebase.auth()
 export const storage = firebase.storage()
