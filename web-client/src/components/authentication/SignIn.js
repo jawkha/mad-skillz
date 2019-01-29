@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { Form, Button, Icon } from 'semantic-ui-react'
+
 import {
   signInWithGoogle,
   signInWithEmailAndPassword
@@ -30,25 +32,29 @@ class SignIn extends Component {
     const { email, password } = this.state
 
     return (
-      <form onSubmit={this.handleSubmit}>
-        <h2>Sign In</h2>
-        <input
+      <Form onSubmit={this.handleSubmit} size="large">
+        <Form.Input
           type="email"
           name="email"
           placeholder="Email"
           value={email}
           onChange={this.handleChange}
         />
-        <input
+        <Form.Input
           type="password"
           name="password"
           placeholder="Password"
           value={password}
           onChange={this.handleChange}
         />
-        <input type="submit" value="Sign In" />
-        <button onClick={signInWithGoogle}>Sign In With Google</button>
-      </form>
+        <Form.Button type="submit" primary size="large">
+          SIGN IN
+        </Form.Button>
+        <Button color="google plus" onClick={signInWithGoogle} size="large">
+          <Icon name="google" />
+          SIGN IN WITH GOOGLE
+        </Button>
+      </Form>
     )
   }
 }

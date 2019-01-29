@@ -269,7 +269,7 @@ class GamePage extends Component {
                         placeholder="Bet Amount"
                       />
                     </Form.Field>
-                    <Form.Button positive content="Submit" />
+                    <Form.Button positive content="CREATE CHALLENGE" />
                   </Form.Group>
                 </Form>
               ) : (

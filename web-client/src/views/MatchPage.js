@@ -8,35 +8,34 @@
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Grid, Segment, Rail, Image } from 'semantic-ui-react'
+import { Grid, Segment, Rail, Image, Icon } from 'semantic-ui-react'
 
 class MatchPage extends Component {
   render() {
     const { match } = this.props.location.state
 
     return (
-      // <div>
-      //   <h1>Match details to be displayed on this page</h1>
-      //   <h2>
-      //     {match.challenger.displayName} vs {match.accepter.displayName}
-      //   </h2>
-      //   <h2>Bet amount is {match.betAmount}</h2>
-      // </div>
       <Grid centered columns={3}>
         <Grid.Column>
-          <Segment>
-            <h1>VS</h1>
-
+          <Segment textAlign="center" padded="very">
+            <Segment>
+              <Icon name="winner" size="massive" color="yellow" />
+              <h1>PKR {match.betAmount}</h1>
+            </Segment>
+            <Segment>
+              <h1>IN PROGRESS</h1>
+              <h1>0 - 0</h1>
+            </Segment>
             <Rail position="left">
               <Segment>
-                <Image src={match.challenger.photoURL} />
+                <Image src={match.challenger.photoURL} size="medium" circular />
                 <h1>{match.challenger.displayName}</h1>
               </Segment>
             </Rail>
 
             <Rail position="right">
               <Segment>
-                <Image src={match.accepter.photoURL} />
+                <Image src={match.accepter.photoURL} size="medium" circular />
                 <h1>{match.accepter.displayName}</h1>
               </Segment>
             </Rail>

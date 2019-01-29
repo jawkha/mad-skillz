@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { Form } from 'semantic-ui-react'
+
 import { auth, createUserProfileDocument } from '../../firebase/firebase.config'
 
 class SignUp extends Component {
@@ -42,45 +44,46 @@ class SignUp extends Component {
     const { displayName, firstName, lastName, email, password } = this.state
 
     return (
-      <form onSubmit={this.handleSubmit}>
-        <h2>Sign Up</h2>
-        <input
+      <Form onSubmit={this.handleSubmit} size="large">
+        <Form.Input
           type="text"
           name="displayName"
           placeholder="Display Name"
           value={displayName}
           onChange={this.handleChange}
         />
-        <input
+        <Form.Input
           type="text"
           name="firstName"
           placeholder="First Name"
           value={firstName}
           onChange={this.handleChange}
         />
-        <input
+        <Form.Input
           type="text"
           name="lastName"
           placeholder="Last Name"
           value={lastName}
           onChange={this.handleChange}
         />
-        <input
+        <Form.Input
           type="email"
           name="email"
           placeholder="Email"
           value={email}
           onChange={this.handleChange}
         />
-        <input
+        <Form.Input
           type="password"
           name="password"
           placeholder="Password"
           value={password}
           onChange={this.handleChange}
         />
-        <input type="submit" value="Sign Up" />
-      </form>
+        <Form.Button type="submit" positive size="large">
+          SIGN UP
+        </Form.Button>
+      </Form>
     )
   }
 }
