@@ -1,9 +1,9 @@
 html {
   box-sizing: border-box;
-  font-size: 16px;
-  font-family: sans-serif;
-  color: rgb(240, 248, 255);
-  background-color: #4484f4;
+  font-size: 10px;
+  /* font-family: 'Raleway', sans-serif; */
+  /* font-family: 'Roboto', sans-serif; */
+  color: #c3c8cc;
   text-align: center;
 }
 
@@ -36,3 +36,90 @@ img {
   max-width: 100%;
   height: auto;
 }
+
+a {
+  text-decoration: none;
+  color: #c3c8cc;
+}
+
+/* FONT SIZES */
+h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 2.5rem;
+}
+
+h3 {
+  font-size: 2rem;
+}
+
+h4 {
+  font-size: 1.7rem;
+}
+
+h5 {
+  font-size: 1.5rem;
+}
+
+h6,
+a,
+button,
+p {
+  font-size: 1.6rem;
+}
+
+/* .jumbotron {
+  width: 100vw;
+  height: 10rem;
+}
+
+.game-page-cover-image {
+  height: 10rem;
+}
+
+.game-page-content {
+  display: flex;
+}
+
+.game-page-center-display {
+  display: flex;
+  flex-direction: column;
+  margin-left: 28rem;
+}
+
+.game-page-create-challenge-div {
+  width: 70rem;
+  height: 10rem;
+  margin: 2rem auto;
+  padding: 3rem;
+  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.05), 0 0px 4rem rgba(0, 0, 0, 0.08);
+}
+
+.game-page-current-open-challenges-div {
+  width: 70rem;
+  margin: 2rem auto;
+  padding: 3rem;
+  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.05), 0 0px 4rem rgba(0, 0, 0, 0.08);
+}
+
+.game-page-recent-game-results-div {
+  width: 70rem;
+  margin: 2rem auto;
+  padding: 3rem;
+  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.05), 0 0px 4rem rgba(0, 0, 0, 0.08);
+}
+
+.game-page-games-in-progress-div {
+  width: 70rem;
+  margin: 2rem auto;
+  padding: 3rem;
+  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.05), 0 0px 4rem rgba(0, 0, 0, 0.08);
+} */
+/* 
+.game-page-chat-window {
+  width: 20rem;
+  margin: 3rem;
+  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.05), 0 0px 4rem rgba(0, 0, 0, 0.08);
+} */

@@ -1,3 +1,4 @@
-node_modules
 __design
+__playground
+node_modules
 dist
