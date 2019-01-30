@@ -3,6 +3,7 @@ import { Form, Button, Icon } from 'semantic-ui-react'
 
 import {
   signInWithGoogle,
+  signInWithFacebook,
   signInWithEmailAndPassword
 } from '../../firebase/firebase.config'
 
@@ -50,9 +51,14 @@ class SignIn extends Component {
         <Form.Button type="submit" primary size="large">
           SIGN IN
         </Form.Button>
+
         <Button color="google plus" onClick={signInWithGoogle} size="large">
           <Icon name="google" />
           SIGN IN WITH GOOGLE
+        </Button>
+        <Button color="facebook" onClick={signInWithFacebook} size="large">
+          <Icon name="facebook" />
+          SIGN IN WITH FACEBOOK
         </Button>
       </Form>
     )

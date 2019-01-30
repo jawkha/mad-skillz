@@ -13,9 +13,7 @@ import { UserContext } from '../providers/UserProvider'
 
 class UserProfile extends Component {
   static contextType = UserContext
-  state = {
-    displayName: ''
-  }
+  state = {}
   imageInput = null
 
   get uid() {
@@ -39,7 +37,7 @@ class UserProfile extends Component {
     event.preventDefault()
     const { displayName } = this.state
     if (displayName) {
-      this.userRef.update({ displayName })
+      this.userRef.update({ ...this.state })
     }
     if (this.file) {
       storage
@@ -67,23 +65,47 @@ class UserProfile extends Component {
                 <Header as="h2">.</Header>
               </Segment>
             )}
-            <h2>{`${user.firstName} ${user.lastName}`}</h2>
+            <h2>{user.displayName}</h2>
           </Segment>
 
           <Form onSubmit={this.handleSubmit} size="large">
             <Form.Group widths="equal">
-              <Form.Input
-                fluid
-                label="First name"
-                placeholder={user.firstName}
-                readOnly
-              />
-              <Form.Input
-                fluid
-                label="Last name"
-                placeholder={user.lastName}
-                readOnly
-              />
+              {user.firstName ? (
+                <Form.Input
+                  fluid
+                  label="First name"
+                  name="firstName"
+                  placeholder={user.firstName}
+                  readOnly
+                />
+              ) : (
+                <Form.Input
+                  fluid
+                  label="First name"
+                  name="firstName"
+                  placeholder="First Name"
+                  onChange={this.handleChange}
+                  required
+                />
+              )}
+              {user.lastName ? (
+                <Form.Input
+                  fluid
+                  label="Last name"
+                  name="lastName"
+                  placeholder={user.lastName}
+                  readOnly
+                />
+              ) : (
+                <Form.Input
+                  fluid
+                  label="Last name"
+                  name="lastName"
+                  placeholder="Last Name"
+                  onChange={this.handleChange}
+                  required
+                />
+              )}
             </Form.Group>
             <Form.Input
               type="text"

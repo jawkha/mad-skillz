@@ -24,6 +24,11 @@ export const storage = firebase.storage()
 
 export const provider = new firebase.auth.GoogleAuthProvider()
 export const signInWithGoogle = () => auth.signInWithPopup(provider)
+
+export const facebookAuthProvider = new firebase.auth.FacebookAuthProvider()
+export const signInWithFacebook = () =>
+  auth.signInWithPopup(facebookAuthProvider)
+
 export const signInWithEmailAndPassword = (email, password) =>
   auth.signInWithEmailAndPassword(email, password)
 export const signOut = () => auth.signOut()
